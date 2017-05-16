@@ -45,10 +45,22 @@ class DouBan(CrawlSpider):
         price = str(re.search(u'\u5b9a\u4ef7:</span>(.*?)<br>',info).group(1))
         pages = str(re.search(u'\u9875\u6570:</span>(.*?)<br>',info).group(1))
         translator = re.search(u'\u8bd1\u8005:</span>(.*?)<br>', info)
-        if translator :
+        if translator:
             translator = str(re.search(u'>(.*?)</a>', translator.group(1)).group(1))
-        summary = selector.xpath("//div[@class='intro']/p/text()").extract()
-        #catalog =
+        summary = selector.xpath("//div[@class='indent']/span[@class='all hidden']").extract()
+        if summary:
+            summary = str(re.search(u'<div class="intro">\n(.*?)</div>',summary[0]).group(1))
+            # need fix this!
+            # summary = str(re.search(u'<p>(.*?)</p>', summary).group(0))
+        else:
+            summary = selector.xpath("//div[@class='intro']/p/text()").extract()
+
+        catalog = selector.xpath("//div[@id='dir_"+bookid+"_full']/text()").extract()
+        if catalog:
+            # delete useless dot
+            catalog.pop()
+            catalog.pop()
+
         lookcount = selector.xpath("//div[@id='collector']/p[contains(@class, 'pl')][2]/a/text()").extract()
         lookcount = ''.join(lookcount)
         lookcount = str(re.search(u'(\d+)',lookcount).group(1))
@@ -68,7 +80,7 @@ class DouBan(CrawlSpider):
         if translator:
             item['translator'] = translator
         item['summary'] = summary
-        #item['catalog'] = catalog
+        item['catalog'] = catalog
         item['lookcount'] = lookcount
 
         yield item

@@ -24,7 +24,7 @@ class BookspiderItem(scrapy.Item):
     pages = scrapy.Field()
     translator = scrapy.Field()
     summary = scrapy.Field()
-    #catalog = scrapy.Field()
+    catalog = scrapy.Field()
     lookcount = scrapy.Field()
     pass
 
