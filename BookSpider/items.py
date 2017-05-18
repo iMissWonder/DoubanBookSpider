@@ -15,7 +15,6 @@ class BookspiderItem(scrapy.Item):
     bookid = scrapy.Field()
     title = scrapy.Field()
     author = scrapy.Field()
-    image = scrapy.Field()
 
     isbn13 = scrapy.Field()
     publisher = scrapy.Field()
@@ -26,5 +25,17 @@ class BookspiderItem(scrapy.Item):
     summary = scrapy.Field()
     catalog = scrapy.Field()
     lookcount = scrapy.Field()
+    image = scrapy.Field()
+    tryread = scrapy.Field()
+
+    short_review_content = scrapy.Field()
+    short_review_name = scrapy.Field()
+    short_review_id =  scrapy.Field()
+
+    review_title = scrapy.Field()
+    review_link = scrapy.Field()
+    review_name = scrapy.Field()
+    review_id = scrapy.Field()
+
     pass
 
